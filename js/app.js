@@ -14,18 +14,32 @@
 	var led2 = document.getElementById('led2r');
 	var led3 = document.getElementById('led3r');
 	var led4 = document.getElementById('led4r');
+	var chk = document.getElementById('chkled');
+	var led1x, led2x, led3x, led4x
 	
 	document.getElementById("led0").hidden = true;
 	document.getElementById("smodes").hidden = true
+	document.getElementById("chkledx").hidden = true
+	document.getElementById("led1chkx").hidden = true
+	document.getElementById("led2chkx").hidden = true
+	document.getElementById("led3chkx").hidden = true
+	document.getElementById("led4chkx").hidden = true
+
 
 	pubnub.subscribe({
 		channel: settings.channel,
 		callback: function(m) {
-			if(m.temperature) {
-				document.querySelector('[data-temperature]').dataset.temperature = m.temperature;
+			if(m.led1c) {
+				document.getElementById('led1chk').checked = m.led1c;
 			}
-			if(m.humidity) {
-				document.querySelector('[data-humidity]').dataset.humidity = m.humidity;
+			if(m.led2c) {
+				document.getElementById('led2chk').checked = m.led2c;
+			}
+			if(m.led3c) {
+				document.getElementById('led3chk').checked = m.led3c;
+			}
+			if(m.led4c) {
+				document.getElementById('led4chk').checked = m.led4c;
 			}
 		}
 	})
@@ -52,13 +66,34 @@
 		});
 	}
 
+	function reset(){
+		document.getElementById("led0r").value = '0';
+		document.getElementById("led1r").value = '0';
+		document.getElementById("led2r").value = '0';
+		document.getElementById("led3r").value = '0';
+		document.getElementById("led4r").value = '0';
+		publishUpdate({item: 'led0', brightness: 0});	
+	}
+
 	// UI EVENTS
 	iot.addEventListener('change', function(e){
-	if (this.checked){
+		if (this.checked){
+			publishUpdate({item: 'manual', brightness: 0});
 			document.getElementById("smodes").hidden = false;
+			document.getElementById("chkledx").hidden = false;
+			document.getElementById("led0r").value = '0';
+			document.getElementById("led1r").value = '0';
+			document.getElementById("led2r").value = '0';
+			document.getElementById("led3r").value = '0';
+			document.getElementById("led4r").value = '0';
+			//var alp = 15
+			//var text0 = {'my : ', alp, 'eeek ', alp;
+			//window.alert('none');
 		}
 		else {
+			publishUpdate({item: 'auto', brightness: 0});
 			document.getElementById("smodes").hidden = true;
+			document.getElementById("chkledx").hidden = true;
 		}
 	//	publishUpdate({item: 'iot', open: this.checked});
 	}, false);
@@ -69,20 +104,15 @@
 			document.getElementById("led2").hidden = true;
 			document.getElementById("led3").hidden = true;
 			document.getElementById("led4").hidden = true;
-			document.getElementById("led0r").value = '0';
-			publishUpdate({item: 'led0', brightness: 0});
+			reset()
 		}
 		else {
 			document.getElementById("led0").hidden = true;
 			document.getElementById("led1").hidden = false;
-			document.getElementById("led1r").value = '0';
 			document.getElementById("led2").hidden = false;
-			document.getElementById("led2r").value = '0';
-			document.getElementById("led3").hidden = false;
-			document.getElementById("led3r").value = '0';			
+			document.getElementById("led3").hidden = false;		
 			document.getElementById("led4").hidden = false;
-			document.getElementById("led4r").value = '0';
-			publishUpdate({item: 'led0', brightness: 0});
+			reset()
 		}
 		//publishUpdate({item: 'iot', open: this.checked});
 	}, false);
@@ -105,5 +135,21 @@
 	led4.addEventListener('change', function(e){
 		publishUpdate({item: 'led4', brightness: +this.value});
 	}, false);
-	
+	chk.addEventListener('change', function(e){
+		if (this.checked){
+			document.getElementById('chkled').disabled = true;
+			reset()
+			publishUpdate({item: 'cled', brightness: 10});
+			setTimeout(function(){
+
+				document.getElementById('chkled').checked = false;
+				document.getElementById('chkled').disabled = false;
+				document.getElementById("led1chkx").hidden = false
+				document.getElementById("led2chkx").hidden = false
+				document.getElementById("led3chkx").hidden = false
+				document.getElementById("led4chkx").hidden = false				
+			}, 2000);
+		}
+	}, false);
+
 })();

@@ -352,12 +352,27 @@ label[for=cmode] .toggle-button:before {
 }
 label[for=cmode] .toggle-button:after {
 	content: "Single";
-	padding-right:10px;
+	padding-left:50px;
+}
+label[for=chkledc] .toggle-button:before {
+	content: "OK";
+	padding-left: 10px;
+}
+label[for=chkledc] .toggle-button:after {
+	content: "Fault";
+	padding-left:50px;
+}
+label[for=chkled] .toggle-button:before {
+	content: "";
+	padding-left: 10px;
+}
+label[for=chkled] .toggle-button:after {
+	content: "Check";
+	padding-left:70px;
 }
 label[for=door] .toggle-button:before {
 	content: "OPENED";
 	padding-left: 10px;
-
 }
 label[for=door] .toggle-button:after {
 	content: "CLOSED";
