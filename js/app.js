@@ -84,7 +84,15 @@
 		document.getElementById("led2r").value = '0';
 		document.getElementById("led3r").value = '0';
 		document.getElementById("led4r").value = '0';
+		resetchk()
 		publishUpdate({item: 'led0', brightness: 0});	
+	}
+
+	function resetchk(){
+		document.getElementById("led1chkx").hidden = true
+		document.getElementById("led2chkx").hidden = true
+		document.getElementById("led3chkx").hidden = true
+		document.getElementById("led4chkx").hidden = true
 	}
 
 	// UI EVENTS
@@ -129,22 +137,27 @@
 		//publishUpdate({item: 'iot', open: this.checked});
 	}, false);
 	led0.addEventListener('change', function(e){
+		resetchk()
 		publishUpdate({item: 'led0', brightness: +this.value});
 	}, false);
 
 	led1.addEventListener('change', function(e){
+		resetchk()
 		publishUpdate({item: 'led1', brightness: +this.value});
 	}, false);
 
 	led2.addEventListener('change', function(e){
+		resetchk()
 		publishUpdate({item: 'led2', brightness: +this.value});
 	}, false);
 	
 	led3.addEventListener('change', function(e){
+		resetchk()
 		publishUpdate({item: 'led3', brightness: +this.value});
 	}, false);
 	
 	led4.addEventListener('change', function(e){
+		resetchk()
 		publishUpdate({item: 'led4', brightness: +this.value});
 	}, false);
 	chk.addEventListener('change', function(e){
