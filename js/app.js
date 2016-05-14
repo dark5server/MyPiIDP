@@ -30,16 +30,28 @@
 		channel: settings.channel,
 		callback: function(m) {
 			if(m.led1c) {
-				document.getElementById('led1chk').checked = m.led1c;
+				document.getElementById('led1chk').checked = true;
+			}
+			else{ 
+				document.getElementById('led1chk').checked = false;
 			}
 			if(m.led2c) {
-				document.getElementById('led2chk').checked = m.led2c;
+				document.getElementById('led2chk').checked = true;
+			}
+			else{ 
+				document.getElementById('led2chk').checked = false;
 			}
 			if(m.led3c) {
-				document.getElementById('led3chk').checked = m.led3c;
+				document.getElementById('led3chk').checked = true;
+			}
+			else{ 
+				document.getElementById('led3chk').checked = false;
 			}
 			if(m.led4c) {
-				document.getElementById('led4chk').checked = m.led4c;
+				document.getElementById('led4chk').checked = true;
+			}
+			else{ 
+				document.getElementById('led4chk').checked = false;
 			}
 		}
 	})
